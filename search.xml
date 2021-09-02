@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>SpringBoot整合Mybatis使用注解实现多数据源</title>
-    <url>/2021/09/02/TEST/</url>
+    <url>/2021/09/02/SpringBoot%E6%95%B4%E5%90%88Mybatis%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/</url>
     <content><![CDATA[<h1 id="SpringBoot整合Mybatis使用注解实现多数据源"><a href="#SpringBoot整合Mybatis使用注解实现多数据源" class="headerlink" title="SpringBoot整合Mybatis使用注解实现多数据源"></a>SpringBoot整合Mybatis使用注解实现多数据源</h1><h2 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h2><blockquote>
 <p>pom.xml 添加以下依赖</p>
 </blockquote>
