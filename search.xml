@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>上线强烈：jar冲突</title>
+    <url>/2021/09/09/%E4%B8%8A%E7%BA%BF%E5%BC%BA%E7%83%88%EF%BC%9Ajar%E5%86%B2%E7%AA%81/</url>
+    <content><![CDATA[<p>jar包冲突，导致</p>
+<p>问题：net.sf.jsqlparser.statement.select.PlainSelect.getGroupByColumnReferences()Ljava/util/List;</p>
+<p>去掉或者添加</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">compile group: &#x27;com.github.jsqlparser&#x27;, name: &#x27;jsqlparser&#x27;, version: &#x27;3.1&#x27;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
     <title>SpringBoot整合Mybatis使用注解实现多数据源</title>
     <url>/2021/09/02/SpringBoot%E6%95%B4%E5%90%88Mybatis%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/</url>
     <content><![CDATA[<h1 id="SpringBoot整合Mybatis使用注解实现多数据源"><a href="#SpringBoot整合Mybatis使用注解实现多数据源" class="headerlink" title="SpringBoot整合Mybatis使用注解实现多数据源"></a>SpringBoot整合Mybatis使用注解实现多数据源</h1><h2 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h2><blockquote>
