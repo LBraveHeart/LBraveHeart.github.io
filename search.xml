@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>上线强烈：jar冲突</title>
+    <title>上线强烈注意事项：jar冲突</title>
     <url>/2021/09/09/%E4%B8%8A%E7%BA%BF%E5%BC%BA%E7%83%88%EF%BC%9Ajar%E5%86%B2%E7%AA%81/</url>
     <content><![CDATA[<p>jar包冲突，导致</p>
 <p>问题：net.sf.jsqlparser.statement.select.PlainSelect.getGroupByColumnReferences()Ljava/util/List;</p>
