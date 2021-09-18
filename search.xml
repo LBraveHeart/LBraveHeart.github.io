@@ -7,7 +7,7 @@
 <p>前提情况下 是有代理</p>
 </blockquote>
 <p>端口号是代理服务器本地端口</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global https.proxy http://127.0.0.1:1080</span><br><span class="line"></span><br><span class="line">git config --global https.proxy https://127.0.0.1:1080</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy http://127.0.0.1:1080</span><br><span class="line"></span><br><span class="line">git config --global https.proxy https://127.0.0.1:1080</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="设置host-无代理"><a href="#设置host-无代理" class="headerlink" title="设置host(无代理)"></a>设置host(无代理)</h2><ol>
 <li>打开<a href="https://github.com.ipaddress.com/">https://github.com.ipaddress.com/</a> 如下图：</li>
