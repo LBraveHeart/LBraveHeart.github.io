@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>log4j2 漏洞修复</title>
+    <url>/2021/12/22/log4j2-%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D/</url>
+    <content><![CDATA[<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ol>
+<li><p>添加JVM参数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Dlog4j2.formatMsgNoLookups=true</span><br></pre></td></tr></table></figure></li>
+<li><p>修改配置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">log4j2.formatMsgNoLookups=True</span><br></pre></td></tr></table></figure></li>
+<li><p>添加环境变量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FORMAT_MESSAGES_PATTERN_DISABLE_LOOKUPS 设置为 true</span><br></pre></td></tr></table></figure></li>
+<li><p>升级Apache Log4j2 相关包至最新版</p>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>pulsar</title>
     <url>/2021/12/03/pulsar/</url>
     <content><![CDATA[<h1 id="单机版使用"><a href="#单机版使用" class="headerlink" title="单机版使用"></a>单机版使用</h1><h2 id="下载pulsar"><a href="#下载pulsar" class="headerlink" title="下载pulsar"></a>下载pulsar</h2><p><a href="https://pulsar.apache.org/download/">https://pulsar.apache.org/download/</a><br>下载完成后解压</p>
