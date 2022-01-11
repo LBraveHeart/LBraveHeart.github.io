@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>线程池的状态参数分析</title>
+    <url>/2022/01/11/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%8A%B6%E6%80%81%E5%8F%82%E6%95%B0%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="线程池的状态参数分析"><a href="#线程池的状态参数分析" class="headerlink" title="线程池的状态参数分析"></a>线程池的状态参数分析</h1><h2 id="线程池的原子变量"><a href="#线程池的原子变量" class="headerlink" title="线程池的原子变量"></a>线程池的原子变量</h2><p>ctl的创建如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger ctl = <span class="keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="number">0</span>));</span><br></pre></td></tr></table></figure>
+
+<p>上面中的<code>RUNNING</code>为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RUNNING    = -<span class="number">1</span> &lt;&lt; COUNT_BITS;</span><br></pre></td></tr></table></figure>
+<p>-1做左移<code>COUNT_BITS</code>运算</p>
+<p><code>COUNT_BITS</code>如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COUNT_BITS = Integer.SIZE - <span class="number">3</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>其中<code>Integer.SIZE</code>=32，得知<code>COUNT_BITS</code>为29，那么<code>RUNNING</code>为左移-1左移29位，-1的二进制表示为<code>11111111111111111111111111111111</code>，左移29位<code>11100000000000000000000000000000</code>。</p>
+<p><code>ctlOf</code>的计算方式如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">ctlOf</span><span class="params">(<span class="keyword">int</span> rs, <span class="keyword">int</span> wc)</span> </span>&#123; <span class="keyword">return</span> rs | wc; &#125;</span><br></pre></td></tr></table></figure>
+<p>线程的运行状态与线程数量做或运算，所以运行状态左移29位后，将高3位表示运行状态，低29位表示线程数量。</p>
+<p>由于线程池的运行状态只有如下几种：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// runState is stored in the high-order bits</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RUNNING    = -<span class="number">1</span> &lt;&lt; COUNT_BITS;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SHUTDOWN   =  <span class="number">0</span> &lt;&lt; COUNT_BITS;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOP       =  <span class="number">1</span> &lt;&lt; COUNT_BITS;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TIDYING    =  <span class="number">2</span> &lt;&lt; COUNT_BITS;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TERMINATED =  <span class="number">3</span> &lt;&lt; COUNT_BITS;</span><br></pre></td></tr></table></figure>
+<p>所以高3位足以表示所有的运行状态。<br>线程池提供了运行状态和线程数量的计算方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Packing and unpacking ctl</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">runStateOf</span><span class="params">(<span class="keyword">int</span> c)</span>     </span>&#123; <span class="keyword">return</span> c &amp; ~CAPACITY; &#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">workerCountOf</span><span class="params">(<span class="keyword">int</span> c)</span>  </span>&#123; <span class="keyword">return</span> c &amp; CAPACITY; &#125;</span><br></pre></td></tr></table></figure>
+<p>运算常量</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CAPACITY   = (<span class="number">1</span> &lt;&lt; COUNT_BITS) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">CAPACITY = (<span class="number">1</span> &lt;&lt; <span class="number">29</span>) -<span class="number">1</span> </span><br><span class="line">		 = (<span class="number">00000000000000000000000000000001</span> &lt;&lt; <span class="number">29</span>) - <span class="number">1</span></span><br><span class="line">         = <span class="number">00100000000000000000000000000000</span> - <span class="number">1</span></span><br><span class="line">         = <span class="number">00011111111111111111111111111111</span></span><br></pre></td></tr></table></figure>
+
+<p>所以<code>runStateOf</code> 为舍弃掉低29位后的值,<code>workerCountOf</code> 为舍弃掉高3位后的值。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>log4j2 漏洞修复</title>
     <url>/2021/12/22/log4j2-%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D/</url>
     <content><![CDATA[<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ol>
