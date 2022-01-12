@@ -320,7 +320,7 @@
   </entry>
   <entry>
     <title>java阻塞队列</title>
-    <url>/2020/09/10/va%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/</url>
+    <url>/2020/09/10/java%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/</url>
     <content><![CDATA[<h2 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h2><table>
 <thead>
 <tr>
@@ -357,7 +357,7 @@
   </entry>
   <entry>
     <title>git切换分支</title>
-    <url>/2020/04/14/t%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF/</url>
+    <url>/2020/04/14/git%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF/</url>
     <content><![CDATA[<h2 id="远程拉取项目"><a href="#远程拉取项目" class="headerlink" title="远程拉取项目"></a>远程拉取项目</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone xxxx.git</span><br></pre></td></tr></table></figure>
 <h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -a</span><br></pre></td></tr></table></figure>
 
@@ -376,7 +376,7 @@
   </entry>
   <entry>
     <title>Netty的基本使用</title>
-    <url>/2020/03/25/etty%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <url>/2020/03/25/netty%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 id="Netty的基本使用"><a href="#Netty的基本使用" class="headerlink" title="Netty的基本使用"></a>Netty的基本使用</h1><h2 id="服务端定义"><a href="#服务端定义" class="headerlink" title="服务端定义"></a>服务端定义</h2><h3 id="开启服务端端口"><a href="#开启服务端端口" class="headerlink" title="开启服务端端口"></a>开启服务端端口</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        EventLoopGroup boseGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">        EventLoopGroup workerGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ServerBootstrap serverBootstrap = <span class="keyword">new</span> ServerBootstrap();</span><br><span class="line">            <span class="comment">// handler 只针对boseGroup</span></span><br><span class="line">            <span class="comment">// childHandler 经过boseGroup后再经过workerGroup</span></span><br><span class="line">            serverBootstrap.group(boseGroup,workerGroup).channel(NioServerSocketChannel.class)</span><br><span class="line">                    .childHandler(<span class="keyword">new</span> MyServerInitializer());</span><br><span class="line">            ChannelFuture channelFuture = serverBootstrap.bind(<span class="number">8899</span>).sync();</span><br><span class="line">            channelFuture.channel().closeFuture().sync();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            boseGroup.shutdownGracefully();</span><br><span class="line">            workerGroup.shutdownGracefully();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="定义服务端initialize"><a href="#定义服务端initialize" class="headerlink" title="定义服务端initialize"></a>定义服务端initialize</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServerInitializer</span> <span class="keyword">extends</span> <span class="title">ChannelInitializer</span>&lt;<span class="title">SocketChannel</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initChannel</span><span class="params">(SocketChannel ch)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ChannelPipeline pipeline = ch.pipeline();</span><br><span class="line">        pipeline.addLast(<span class="keyword">new</span> LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,<span class="number">0</span>,<span class="number">4</span>,<span class="number">0</span>,<span class="number">4</span>));</span><br><span class="line">        pipeline.addLast(<span class="keyword">new</span> LengthFieldPrepender(<span class="number">4</span>));</span><br><span class="line">        pipeline.addLast(<span class="keyword">new</span> StringDecoder(CharsetUtil.UTF_8));</span><br><span class="line">        pipeline.addLast(<span class="keyword">new</span> StringEncoder(CharsetUtil.UTF_8));</span><br><span class="line">        pipeline.addLast(<span class="keyword">new</span> MyHttpServerHandler());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -519,7 +519,8 @@
 <h3 id="服务层"><a href="#服务层" class="headerlink" title="服务层"></a>服务层</h3><p>Redis Cluster</p>
 ]]></content>
       <categories>
-        <category>redis</category>
+        <category>中间件</category>
+        <category>Redis</category>
       </categories>
       <tags>
         <tag>redis</tag>
@@ -719,7 +720,7 @@
   </entry>
   <entry>
     <title>Spring 的事务传播性</title>
-    <url>/2020/03/04/ring-%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E6%80%A7/</url>
+    <url>/2020/03/04/Spring-%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E6%80%A7/</url>
     <content><![CDATA[<h3 id="spring-的事务传播性"><a href="#spring-的事务传播性" class="headerlink" title="spring 的事务传播性"></a>spring 的事务传播性</h3><table>
 <thead>
 <tr>
@@ -759,15 +760,15 @@
 <p><code>REQUIRED</code> 和 <code>REQUIRES_NEW</code> : 两个方法必须在不同的类中才会生效，才会创建新的事务。否则只会创建一个。    </p>
 ]]></content>
       <categories>
-        <category>spring</category>
+        <category>Spring</category>
       </categories>
       <tags>
-        <tag>spring事务</tag>
+        <tag>事务</tag>
       </tags>
   </entry>
   <entry>
     <title>乐观锁和悲观锁</title>
-    <url>/2020/03/04/%E6%B5%93%E7%BC%A9%E5%92%8C%E6%82%B2%E8%A7%82%E9%94%81/</url>
+    <url>/2020/03/04/%E4%B9%90%E8%A7%82%E9%94%81%E5%92%8C%E6%82%B2%E8%A7%82%E9%94%81/</url>
     <content><![CDATA[<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>认为同一时间访问共享资源的线程不会冲突，所以采用共享资源的状态对资源进行修改。CAS操作也是乐观锁的体现。适合读多写少的操作。效率较高。</p>
 <p>乐观锁的实现方式：</p>
 <p>1、使用version方式，版本号控制对数据的操作</p>
@@ -1165,6 +1166,10 @@
     <url>/2019/07/30/sql%E5%8E%BB%E9%99%A4%E8%AF%AD%E5%8F%A5/</url>
     <content><![CDATA[<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span>(u.userId) <span class="keyword">FROM</span> `<span class="keyword">user</span>` u <span class="keyword">where</span> u.status<span class="operator">=</span><span class="string">&#x27;1&#x27;</span>;</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>MySQL</category>
+      </categories>
   </entry>
   <entry>
     <title>idea去除重复代码检测</title>
@@ -1514,6 +1519,7 @@
 ]]></content>
       <categories>
         <category>java</category>
+        <category>设计模式</category>
       </categories>
       <tags>
         <tag>设计模式</tag>
@@ -1563,7 +1569,7 @@
   </entry>
   <entry>
     <title>动态壁纸</title>
-    <url>/2019/05/15/%E5%A3%81%E7%BA%B8/</url>
+    <url>/2019/05/15/%E5%8A%A8%E6%80%81%E5%A3%81%E7%BA%B8/</url>
     <content><![CDATA[<h3 id="动态壁纸软件"><a href="#动态壁纸软件" class="headerlink" title="动态壁纸软件"></a>动态壁纸软件</h3><blockquote>
 <p>   <a href="https://store.steampowered.com/app/431960/Wallpaper_Engine/">Wallpaper Engine</a></p>
 </blockquote>
@@ -1577,7 +1583,7 @@
   </entry>
   <entry>
     <title>opencv参考链接</title>
-    <url>/2019/05/06/pencv%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5/</url>
+    <url>/2019/05/06/opencv%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5/</url>
     <content><![CDATA[<h3 id="基于java的opencv、tesseractc参考链接"><a href="#基于java的opencv、tesseractc参考链接" class="headerlink" title="基于java的opencv、tesseractc参考链接"></a>基于java的opencv、tesseractc参考链接</h3><ul>
 <li><p>   <a href="https://blog.csdn.net/qq_34814092/article/details/85240465">Intellij Idea 部署 OpenCV-4.0.0 环境</a></p>
 </li>
@@ -1604,7 +1610,7 @@
   </entry>
   <entry>
     <title>git提交</title>
-    <url>/2019/05/06/it%E6%8F%90%E4%BA%A4/</url>
+    <url>/2019/05/06/git%E6%8F%90%E4%BA%A4/</url>
     <content><![CDATA[<h4 id="git提交步骤"><a href="#git提交步骤" class="headerlink" title="git提交步骤"></a>git提交步骤</h4><ul>
 <li><pre><code>git init //初始化仓库
 </code></pre>
@@ -1631,7 +1637,7 @@
   </entry>
   <entry>
     <title>html5 audio配合span data-src-mp3使用</title>
-    <url>/2019/04/26/ntitled/</url>
+    <url>/2019/04/26/html5%20audio%E9%85%8D%E5%90%88span%20data-src-mp3%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h2 id="html5-audio配合span-data-src-mp3使用"><a href="#html5-audio配合span-data-src-mp3使用" class="headerlink" title="html5 audio配合span data-src-mp3使用"></a>html5 audio配合span data-src-mp3使用</h2><h4 id="编写html代码"><a href="#编写html代码" class="headerlink" title="编写html代码"></a>编写html代码</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;audio id=<span class="string">&quot;player&quot;</span> style=<span class="string">&quot;display: none&quot;</span>&gt;&lt;/audio&gt;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span> = <span class="string">&#x27;1&#x27;</span> <span class="attr">data-src-mp3</span>=<span class="string">&quot;&quot;</span> <span class="attr">data-src-ogg</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">				</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span> = <span class="string">&#x27;2&#x27;</span> <span class="attr">data-src-mp3</span>=<span class="string">&quot;&quot;</span> <span class="attr">data-src-ogg</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h4 id="初始化span标签"><a href="#初始化span标签" class="headerlink" title="初始化span标签"></a>初始化span标签</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">&quot;span.1&quot;</span>)</span><br><span class="line">    .attr(<span class="string">&quot;data-src-mp3&quot;</span>,<span class="string">&quot;song1.mp3&quot;</span>)</span><br><span class="line">    .attr(<span class="string">&quot;data-src-ogg&quot;</span>,<span class="string">&quot;song1.ogg&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;span.2&quot;</span>)</span><br><span class="line">    .attr(<span class="string">&quot;data-src-mp3&quot;</span>,<span class="string">&quot;song2.mp3&quot;</span>)</span><br><span class="line">    .attr(<span class="string">&quot;data-src-ogg&quot;</span>,<span class="string">&quot;song2.ogg&quot;</span>);</span><br></pre></td></tr></table></figure>
@@ -1647,7 +1653,7 @@
   </entry>
   <entry>
     <title>SpringBoot项目基础搭建</title>
-    <url>/2019/03/15/ringBoot/</url>
+    <url>/2019/03/15/SpringBoot%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h2 id="什么是spring-boot"><a href="#什么是spring-boot" class="headerlink" title="什么是spring boot"></a>什么是spring boot</h2><p>Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。     —    <em>来自百度百科</em></p>
 <h2 id="springboot-的特点"><a href="#springboot-的特点" class="headerlink" title="springboot 的特点"></a>springboot 的特点</h2><ol>
 <li>创建独立的Spring应用程序</li>
@@ -1666,21 +1672,21 @@
 <p>配置完成之后部署tomcat 调试</p>
 <p>…</p>
 <h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><h3 id="maven构建项目"><a href="#maven构建项目" class="headerlink" title="maven构建项目"></a>maven构建项目</h3><p><strong>使用工具：</strong><br>IntelliJ IDEA 2018.3.4、jdk1.8.0_201</p>
-<img src="/2019/03/15/ringBoot/idea-1.png" class="" title="idea">
+<img src="/2019/03/15/SpringBoot%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/idea-1.png" class="" title="idea">
 
 <p>在idea界面点击 <em><strong>Create New project</strong></em>,然后点击<em><strong>Next</strong></em></p>
-<img src="/2019/03/15/ringBoot/idea-2.png" class="" title="idea">
+<img src="/2019/03/15/SpringBoot%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/idea-2.png" class="" title="idea">
 
 <p>选择<em><strong>Spring Initializar</strong></em>点击<em><strong>Next</strong></em></p>
-<img src="/2019/03/15/ringBoot/idea-3.png" class="" title="idea">
+<img src="/2019/03/15/SpringBoot%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/idea-3.png" class="" title="idea">
 
 <p>设置初始java包结构点击<em><strong>Next</strong></em></p>
-<img src="/2019/03/15/ringBoot/idea-4.png" class="" title="idea">
+<img src="/2019/03/15/SpringBoot%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/idea-4.png" class="" title="idea">
 
 <p>在此步骤选择springboot集成的其他框架，如mysql<br>然后点击<em><strong>Next</strong></em></p>
-<img src="/2019/03/15/ringBoot/idea-5.png" class="" title="idea">输入项目名称，点击***finish***即可完成创建springboot项目
+<img src="/2019/03/15/SpringBoot%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/idea-5.png" class="" title="idea">输入项目名称，点击***finish***即可完成创建springboot项目
 
-<p><strong>项目结构如下：</strong><img src="/2019/03/15/ringBoot/idea-6.png" class="" title="springboot"></p>
+<p><strong>项目结构如下：</strong><img src="/2019/03/15/SpringBoot%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/idea-6.png" class="" title="springboot"></p>
 <ul>
 <li>   src/main/java/:    程序开发及主程序入口</li>
 <li>   src/main/resources/:    配置文件</li>
@@ -1708,22 +1714,22 @@
   </entry>
   <entry>
     <title>excel数据处理</title>
-    <url>/2019/03/14/xcel%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/</url>
+    <url>/2019/03/14/excel%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/</url>
     <content><![CDATA[<h3 id="excel中把一列数据中第一个空格前后的内容分为两列"><a href="#excel中把一列数据中第一个空格前后的内容分为两列" class="headerlink" title="excel中把一列数据中第一个空格前后的内容分为两列"></a>excel中把一列数据中第一个空格前后的内容分为两列</h3><p>设原内容在A列，则</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">B1=LEFT(A1,FIND(&quot;&quot;,A1))</span><br><span class="line">C1=MID(A1,FIND(&quot;&quot;,A1)+1,LEN(A1))</span><br></pre></td></tr></table></figure>
 
-<h3 id="在一组数据中筛选包含另一组数据的某个数据的单元"><a href="#在一组数据中筛选包含另一组数据的某个数据的单元" class="headerlink" title="在一组数据中筛选包含另一组数据的某个数据的单元"></a>在一组数据中筛选包含另一组数据的某个数据的单元</h3><img src="/2019/03/14/xcel%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/clipboard.png" class="" title="图片1">
+<h3 id="在一组数据中筛选包含另一组数据的某个数据的单元"><a href="#在一组数据中筛选包含另一组数据的某个数据的单元" class="headerlink" title="在一组数据中筛选包含另一组数据的某个数据的单元"></a>在一组数据中筛选包含另一组数据的某个数据的单元</h3><img src="/2019/03/14/excel%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/clipboard.png" class="" title="图片1">
 
 <pre><code>使用MATCH(A2,$B$2:$B$13,0)
 </code></pre>
 <p><strong>公式里第三个参数的含义：</strong></p>
-<img src="/2019/03/14/xcel%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/clipboard1.png" class="" title="图片1">
+<img src="/2019/03/14/excel%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/clipboard1.png" class="" title="图片1">
 <p> 返回结果为位置，如果只需要知道是否存在则可用：</p>
 <pre><code> IF(MATCH(A2,$B$2:$B$13,0)&gt;0,TRUE)
 </code></pre>
 ]]></content>
       <categories>
-        <category>工具</category>
+        <category>计算机基础</category>
       </categories>
       <tags>
         <tag>excel</tag>
@@ -1731,20 +1737,21 @@
   </entry>
   <entry>
     <title>mysql删除语句使用</title>
-    <url>/2019/03/14/sql/</url>
+    <url>/2019/03/14/mysql%E5%88%A0%E9%99%A4%E8%AF%AD%E5%8F%A5%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h2 id="mysql删除语句使用"><a href="#mysql删除语句使用" class="headerlink" title="mysql删除语句使用"></a>mysql删除语句使用</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> t <span class="keyword">from</span> table_name t <span class="keyword">where</span> t.id <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="mysql-清空表数据"><a href="#mysql-清空表数据" class="headerlink" title="mysql 清空表数据"></a>mysql 清空表数据</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">truncate table table_name;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>数据库</category>
+        <category>中间件</category>
+        <category>MySQL</category>
       </categories>
       <tags>
-        <tag>mysql</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
     <title>服务器桌面端差异</title>
-    <url>/2019/03/14/%E5%8A%A1%E5%99%A8%E6%A1%8C%E9%9D%A2%E7%AB%AF%E5%B7%AE%E5%BC%82/</url>
+    <url>/2019/03/14/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A1%8C%E9%9D%A2%E7%AB%AF%E5%B7%AE%E5%BC%82/</url>
     <content><![CDATA[<p><strong>javax.net.ssl.SSLKeyException: RSA premaster secret error错误的解决办法</strong>：</p>
 <p>找到jre环境的lib/ext/sunjce_provider.jar</p>
 <p>把这个放到程序的lib下</p>
@@ -1758,7 +1765,7 @@
   </entry>
   <entry>
     <title>maven导出所有使用的jar包</title>
-    <url>/2019/03/14/ven/</url>
+    <url>/2019/03/14/maven%E5%AF%BC%E5%87%BA%E6%89%80%E6%9C%89%E4%BD%BF%E7%94%A8%E7%9A%84jar%E5%8C%85/</url>
     <content><![CDATA[<p><strong>maven导出所有使用的jar包</strong>:</p>
 <pre><code>mvn dependency:copy-dependencies -DoutputDirectory=lib -DincludeScope=compile 
 </code></pre>
@@ -1772,7 +1779,7 @@
   </entry>
   <entry>
     <title>cmd运行java</title>
-    <url>/2019/03/14/d%E8%BF%90%E8%A1%8Cjava/</url>
+    <url>/2019/03/14/cmd%E8%BF%90%E8%A1%8Cjava/</url>
     <content><![CDATA[<h3 id="用命令行编译运行带有包或使用外部jar包的情况"><a href="#用命令行编译运行带有包或使用外部jar包的情况" class="headerlink" title="用命令行编译运行带有包或使用外部jar包的情况"></a>用命令行编译运行带有包或使用外部jar包的情况</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">编译：javac -Djava.ext.dirs=./lib Test.java  或  javac -Djava.ext.dirs=D:/javacode/lib</span><br><span class="line"></span><br><span class="line">运行：java -Djava.ext.dirs=./lib Test </span><br><span class="line"></span><br><span class="line">将日志保存至文件中：java -Djava.ext.dirs=./lib Test &gt;&gt; log.txt</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>java</category>
@@ -1783,7 +1790,7 @@
   </entry>
   <entry>
     <title>notepad++ 字符串匹配</title>
-    <url>/2019/03/12/tepad-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/</url>
+    <url>/2019/03/12/notepad-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/</url>
     <content><![CDATA[<p>匹配模式查找：<code>a.+?da</code></p>
 <p>表示查找以a开头a结尾的</p>
 ]]></content>
@@ -1796,7 +1803,7 @@
   </entry>
   <entry>
     <title>python格式化字符串</title>
-    <url>/2019/03/12/python/</url>
+    <url>/2019/03/12/python%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<h3 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h3><h4 id="各符号表示："><a href="#各符号表示：" class="headerlink" title="各符号表示："></a>各符号表示：</h4><pre><code>%d - 整数
 %s - 字符串
 %f  - 浮点数
@@ -1817,7 +1824,7 @@ print(&#39;%.2f&#39; % 3.1415926)
   </entry>
   <entry>
     <title>windows特殊字符</title>
-    <url>/2019/03/12/ndows/</url>
+    <url>/2019/03/12/windows/</url>
     <content><![CDATA[<h3 id="windows特殊字符"><a href="#windows特殊字符" class="headerlink" title="windows特殊字符"></a>windows特殊字符</h3><p>版权符号：alt+169 ©   拼音：版权 © </p>
 ]]></content>
       <categories>
@@ -1829,7 +1836,7 @@ print(&#39;%.2f&#39; % 3.1415926)
   </entry>
   <entry>
     <title>docker&amp;tomcat</title>
-    <url>/2019/03/12/cker-tomcat/</url>
+    <url>/2019/03/12/docker-tomcat/</url>
     <content><![CDATA[<h3 id="docker-简介"><a href="#docker-简介" class="headerlink" title="docker 简介"></a>docker 简介</h3><p> **image(镜像)**：对比iso镜像文件，不可操作，只能被pull下载下来使用或push将自己的镜像上传上去</p>
 <p><strong>container(容器)</strong>:<br>    对比iso镜像中的live cd模式，不用直接安装需要的东西即可直接使用。但是一旦容器关闭，那么在容器中安装的vim或gcc都将会被销毁。如果要保存这些，就需要将当前容器封装成自己的镜像。</p>
 <p>**repository(仓库)**：<br>    类似于git，既可以将自己在git上下载下来的代码上传上去，也可以将自己上传上去的代码下载下来。只需要有别人的镜像的名字，标签。自己也可以将自己的镜像设置为私有。</p>
@@ -1851,7 +1858,7 @@ print(&#39;%.2f&#39; % 3.1415926)
   </entry>
   <entry>
     <title>jfinal 文件上传特殊处理</title>
-    <url>/2019/03/12/inal/</url>
+    <url>/2019/03/12/jinal/</url>
     <content><![CDATA[<h3 id="jfinal-文件上传特殊处理"><a href="#jfinal-文件上传特殊处理" class="headerlink" title="jfinal 文件上传特殊处理"></a>jfinal 文件上传特殊处理</h3><p>如果页面中form中有<code>enctype=&quot;multipart/form-data&quot;</code>属性，在后台接收数据时先使用<code>getFile</code>，再使用<code>getPara()</code>;</p>
 ]]></content>
       <categories>
@@ -1898,7 +1905,7 @@ print(&#39;%.2f&#39; % 3.1415926)
   </entry>
   <entry>
     <title>form表单外不同的按钮提交到不同的url</title>
-    <url>/2019/03/08/html/</url>
+    <url>/2019/03/08/form%E8%A1%A8%E5%8D%95%E5%A4%96%E4%B8%8D%E5%90%8C%E7%9A%84%E6%8C%89%E9%92%AE%E6%8F%90%E4%BA%A4%E5%88%B0%E4%B8%8D%E5%90%8C%E7%9A%84url/</url>
     <content><![CDATA[<h2 id="form表单外不同的按钮提交到不同的url"><a href="#form表单外不同的按钮提交到不同的url" class="headerlink" title="form表单外不同的按钮提交到不同的url"></a>form表单外不同的按钮提交到不同的url</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>  <span class="attr">hidden</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;form&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span> <span class="attr">name</span>=<span class="string">&quot;rel&quot;</span> <span class="attr">id</span>=<span class="string">&quot;rel&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span> <span class="attr">name</span>=<span class="string">&quot;answer&quot;</span> <span class="attr">id</span>=<span class="string">&quot;answer&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span> <span class="attr">name</span>=<span class="string">&quot;curPage&quot;</span> <span class="attr">id</span>=<span class="string">&quot;curPage&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span> <span class="attr">name</span>=<span class="string">&quot;examName&quot;</span> <span class="attr">id</span>=<span class="string">&quot;examName&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">typr</span>=<span class="string">&#x27;button&#x27;</span> <span class="attr">id</span>=<span class="string">&#x27;but1&#x27;</span> <span class="attr">class</span>=<span class="string">&#x27;but1&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">typr</span>=<span class="string">&#x27;button&#x27;</span> <span class="attr">id</span>=<span class="string">&#x27;but2&#x27;</span> <span class="attr">class</span>=<span class="string">&#x27;but2&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    $(<span class="built_in">document</span>).on(<span class="string">&#x27;click&#x27;</span>,<span class="string">&#x27;button.but1&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#form&quot;</span>).attr(<span class="string">&quot;action&quot;</span>,<span class="string">&quot;url&quot;</span>);</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#form&quot;</span>).submit();</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">    </span></span><br><span class="line"><span class="javascript">    $(<span class="built_in">document</span>).on(<span class="string">&#x27;click&#x27;</span>,<span class="string">&#x27;button.but1&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#form&quot;</span>).attr(<span class="string">&quot;action&quot;</span>,<span class="string">&quot;url&quot;</span>);</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#form&quot;</span>).submit();</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>	</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>html</category>
