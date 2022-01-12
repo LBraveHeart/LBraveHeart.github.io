@@ -1700,10 +1700,11 @@
 <p> 该模块在完整的打包环境下运行的时候会被禁用。如果你使用java -jar启动应用或者用一个特定的classloader启动，它会认为这是一个“生产环境”。</p>
 ]]></content>
       <categories>
-        <category>springboot</category>
+        <category>Spring</category>
+        <category>SpringBoot</category>
       </categories>
       <tags>
-        <tag>springboot</tag>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
