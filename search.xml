@@ -105,6 +105,7 @@
 ]]></content>
       <categories>
         <category>工具</category>
+        <category>GIT</category>
       </categories>
       <tags>
         <tag>git</tag>
@@ -163,7 +164,7 @@
 <p>去掉或者添加</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">compile group: &#x27;com.github.jsqlparser&#x27;, name: &#x27;jsqlparser&#x27;, version: &#x27;3.1&#x27;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>问题解决</category>
+        <category>问题处理</category>
       </categories>
       <tags>
         <tag>jar</tag>
@@ -288,6 +289,7 @@
 ]]></content>
       <categories>
         <category>工具</category>
+        <category>GIT</category>
       </categories>
       <tags>
         <tag>git</tag>
@@ -465,7 +467,7 @@
 <h2 id="网络接口层发送数据"><a href="#网络接口层发送数据" class="headerlink" title="网络接口层发送数据"></a>网络接口层发送数据</h2><p>发送这样的数据：[01010110101010]</p>
 <h2 id="目标服务器处理数据"><a href="#目标服务器处理数据" class="headerlink" title="目标服务器处理数据"></a>目标服务器处理数据</h2>]]></content>
       <categories>
-        <category>网络通讯</category>
+        <category>计算机基础</category>
       </categories>
       <tags>
         <tag>http</tag>
@@ -829,7 +831,7 @@
   </entry>
   <entry>
     <title>java对象的强引用、软引用、弱引用、虚引用</title>
-    <url>/2020/03/01/ava%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BC%BA%E5%BC%95%E7%94%A8%E3%80%81%E8%BD%AF%E5%BC%95%E7%94%A8%E3%80%81%E5%BC%B1%E5%BC%95%E7%94%A8%E3%80%81%E8%99%9A%E5%BC%95%E7%94%A8/</url>
+    <url>/2020/03/01/java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BC%BA%E5%BC%95%E7%94%A8%E3%80%81%E8%BD%AF%E5%BC%95%E7%94%A8%E3%80%81%E5%BC%B1%E5%BC%95%E7%94%A8%E3%80%81%E8%99%9A%E5%BC%95%E7%94%A8/</url>
     <content><![CDATA[<h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><p>强引用在对象不被使用时，并且也发生了gc，但是也不会被回收，直到发生oom</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 强引用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">strongRef</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Object strongObj = obj;</span><br><span class="line">    obj = <span class="keyword">null</span>;</span><br><span class="line">    System.gc();</span><br><span class="line">    System.out.println(strongObj);</span><br><span class="line">&#125;</span><br><span class="line">java.lang.Object@677327b6</span><br></pre></td></tr></table></figure>
 
@@ -848,11 +850,11 @@
 
 ]]></content>
       <categories>
-        <category>JVM</category>
+        <category>java</category>
+        <category>jvm</category>
       </categories>
       <tags>
         <tag>jvm</tag>
-        <tag>对象引用</tag>
       </tags>
   </entry>
   <entry>
@@ -980,11 +982,11 @@
 <p>CTRL+ALT+ left/right 前后导航编辑过的地方<br>Ctrl＋Shift＋Backspace可以跳转到上次编辑的地方</p>
 ]]></content>
       <categories>
+        <category>工具</category>
         <category>idea</category>
       </categories>
       <tags>
         <tag>idea</tag>
-        <tag>工具使用</tag>
       </tags>
   </entry>
   <entry>
@@ -1011,10 +1013,10 @@
     <url>/2019/12/26/ea%E5%88%9B%E5%BB%BAmaven%E5%BE%88%E6%85%A2%E6%97%B6%EF%BC%8C%E8%AE%BE%E7%BD%AE%E5%B1%9E%E6%80%A7/</url>
     <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-DarchetypeCatalog=internal</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>idea</category>
+        <category>工具</category>
+        <category>maven</category>
       </categories>
       <tags>
-        <tag>idea</tag>
         <tag>maven</tag>
       </tags>
   </entry>
@@ -1150,7 +1152,7 @@
     <url>/2019/10/10/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%95%B0%E6%98%AF%E5%90%A6%E4%B8%BANaN/</url>
     <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Double.isNaN(d)</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>JavaScript</category>
+        <category>html</category>
       </categories>
       <tags>
         <tag>js</tag>
@@ -1178,6 +1180,7 @@
 <p>将红框部分去选勾选</p>
 ]]></content>
       <categories>
+        <category>工具</category>
         <category>idea</category>
       </categories>
       <tags>
@@ -1331,7 +1334,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>通讯协议</category>
+        <category>计算机基础</category>
       </categories>
       <tags>
         <tag>网络</tag>
