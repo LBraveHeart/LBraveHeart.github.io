@@ -149,7 +149,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -196,6 +196,126 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LBraveHeart/2021/09/02/MySQL-PostgreSQL-%E6%8C%89-%E5%B9%B4%E3%80%81%E5%AD%A3%E3%80%81%E6%9C%88%E3%80%81%E5%91%A8%E3%80%81%E5%A4%A9-%E7%BB%9F%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="liu666">
+      <meta itemprop="description" content="仰面朝天，知此身渺渺，沧海一粟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="向阳而生">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/02/MySQL-PostgreSQL-%E6%8C%89-%E5%B9%B4%E3%80%81%E5%AD%A3%E3%80%81%E6%9C%88%E3%80%81%E5%91%A8%E3%80%81%E5%A4%A9-%E7%BB%9F%E8%AE%A1/" class="post-title-link" itemprop="url">MySQL,PostgreSQL 按 年、季、月、周、天 统计</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-02 11:09:00" itemprop="dateCreated datePublished" datetime="2021-09-02T11:09:00+08:00">2021-09-02</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-01-12 18:19:45" itemprop="dateModified" datetime="2022-01-12T18:19:45+08:00">2022-01-12</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="MySQL-PostgreSQL-按-年、季、月、周、天-统计"><a href="#MySQL-PostgreSQL-按-年、季、月、周、天-统计" class="headerlink" title="MySQL,PostgreSQL 按 年、季、月、周、天 统计"></a>MySQL,PostgreSQL 按 年、季、月、周、天 统计</h1><h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="按日"><a href="#按日" class="headerlink" title="按日"></a>按日</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>),<span class="type">DATE</span>(CreateTime) <span class="keyword">FROM</span> t_voipchannelrecord <span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(CreateTime)<span class="operator">=</span><span class="string">&#x27;2016&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">DAY</span>(CreateTime)</span><br></pre></td></tr></table></figure>
+
+<h3 id="按周"><a href="#按周" class="headerlink" title="按周"></a>按周</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- </span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>),WEEK(CreateTime) <span class="keyword">FROM</span> t_voipchannelrecord <span class="keyword">WHERE</span> <span class="keyword">MONTH</span>(CreateTime) <span class="operator">=</span> <span class="string">&#x27;8&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> WEEK(CreateTime) </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 周一到周五每天的统计结果</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>),DAYNAME(CreateTime) <span class="keyword">FROM</span> t_voipchannelrecord <span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(CreateTime) <span class="operator">=</span> <span class="string">&#x27;2016&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> DAYNAME(CreateTime) </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 统计本周数据</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> t_voipchannelrecord <span class="keyword">WHERE</span> <span class="keyword">MONTH</span>(CreateTime) <span class="operator">=</span> <span class="keyword">MONTH</span>(CURDATE()) <span class="keyword">AND</span> WEEK(CreateTime) <span class="operator">=</span> WEEK(CURDATE())</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="按月统计"><a href="#按月统计" class="headerlink" title="按月统计"></a>按月统计</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>),<span class="keyword">MONTH</span>(CreateTime) <span class="keyword">FROM</span> t_voipchannelrecord <span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(CreateTime) <span class="operator">=</span> <span class="string">&#x27;2016&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">MONTH</span>(CreateTime) </span><br></pre></td></tr></table></figure>
+
+
+<h3 id="按季统计"><a href="#按季统计" class="headerlink" title="按季统计"></a>按季统计</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>),QUARTER(CreateTime) <span class="keyword">FROM</span> t_voipchannelrecord <span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(CreateTime) <span class="operator">=</span> <span class="string">&#x27;2016&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> QUARTER(CreateTime) </span><br></pre></td></tr></table></figure>
+
+<h3 id="按年统计"><a href="#按年统计" class="headerlink" title="按年统计"></a>按年统计</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>),<span class="keyword">YEAR</span>(CreateTime) <span class="keyword">FROM</span> t_voipchannelrecord  <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">YEAR</span>(CreateTime)</span><br></pre></td></tr></table></figure>
+<h2 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h2><h3 id="按日统计"><a href="#按日统计" class="headerlink" title="按日统计"></a>按日统计</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">to_char( <span class="type">time</span>, <span class="string">&#x27;yyyy-MM-dd&#x27;</span> ) <span class="keyword">AS</span> <span class="type">time</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>  to_char(<span class="type">time</span>, <span class="string">&#x27;yyyy-MM-dd&#x27;</span> )</span><br></pre></td></tr></table></figure>
+
+<h3 id="按月统计-1"><a href="#按月统计-1" class="headerlink" title="按月统计"></a>按月统计</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">to_char(<span class="type">time</span>, <span class="string">&#x27;yyyy-MM&#x27;</span> ) <span class="keyword">AS</span> <span class="type">time</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>  to_char(<span class="type">time</span>, <span class="string">&#x27;yyyy-MM&#x27;</span> )</span><br></pre></td></tr></table></figure>
+
+<h3 id="按年统计-1"><a href="#按年统计-1" class="headerlink" title="按年统计"></a>按年统计</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">to_char( <span class="type">time</span>,<span class="string">&#x27;yyyy&#x27;</span> ) <span class="keyword">AS</span> <span class="type">time</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> to_char( <span class="type">time</span>,<span class="string">&#x27;yyyy&#x27;</span> )</span><br></pre></td></tr></table></figure>
+
+<h3 id="按小时统计"><a href="#按小时统计" class="headerlink" title="按小时统计"></a>按小时统计</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">to_char(<span class="type">time</span>, <span class="string">&#x27;yyyy-MM-dd HH&#x27;</span> ) <span class="keyword">AS</span> <span class="type">time</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>  to_char( <span class="type">time</span>, <span class="string">&#x27;yyyy-MM-dd HH&#x27;</span> )</span><br></pre></td></tr></table></figure>
+
+<h3 id="按分钟统计"><a href="#按分钟统计" class="headerlink" title="按分钟统计"></a>按分钟统计</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">to_char( <span class="type">time</span>, <span class="string">&#x27;yyyy-MM-dd HH:mm&#x27;</span> ) <span class="keyword">AS</span> <span class="type">time</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>  to_char( <span class="type">time</span>, <span class="string">&#x27;yyyy-MM-dd HH:mm&#x27;</span> )</span><br></pre></td></tr></table></figure>
+
+<h3 id="按周统计"><a href="#按周统计" class="headerlink" title="按周统计"></a>按周统计</h3><p>按周统计最简单法</p>
+<p>对时间row_date字段做处理，变成对应日期周一时间，然后按这个周一的时间去统计。减1的操作表示为对应日期的星期一，减1,2,3,4,5,6,7分别是对应日期的周一，周二，周三，周四，周五、周六、周日。</p>
+<p>to_char( time-(extract (dow from time) - 1 ||’day’)::interval,’yyyy-MM-dd’)  row_date</p>
+<p>然后按上面的语句分组统计即可实现按周统计，下面对应分组函数</p>
+<p>GROUP BY  to_char(time-(extract (dow from time) - 1 ||’day’)::interval,’yyyy-MM-dd’)</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1063,107 +1183,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://github.com/LBraveHeart/2020/03/22/HashMap%E5%92%8CHashtable%E7%9A%84%E6%AF%94%E8%BE%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="liu666">
-      <meta itemprop="description" content="仰面朝天，知此身渺渺，沧海一粟">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="向阳而生">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/22/HashMap%E5%92%8CHashtable%E7%9A%84%E6%AF%94%E8%BE%83/" class="post-title-link" itemprop="url">HashMap和Hashtable的比较</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-03-22 16:39:00" itemprop="dateCreated datePublished" datetime="2020-03-22T16:39:00+08:00">2020-03-22</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-01-12 18:45:46" itemprop="dateModified" datetime="2022-01-12T18:45:46+08:00">2022-01-12</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>296</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="HashMap和Hashtable的比较"><a href="#HashMap和Hashtable的比较" class="headerlink" title="HashMap和Hashtable的比较"></a>HashMap和Hashtable的比较</h1><h2 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>都是数组 + 链表的形式</p>
-<h3 id="存值方式"><a href="#存值方式" class="headerlink" title="存值方式"></a>存值方式</h3><p>都是根据key的hash计算，再将(key,value)组装为Entry或Node</p>
-<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><h3 id="put区别"><a href="#put区别" class="headerlink" title="put区别"></a>put区别</h3><p>1、HashMap允许key和value都为null，而Hashtable不允许</p>
-<p>2、HashMap是线程不安全的，Hashtable是线程安全的。</p>
-<p>3、HashMap存值，在链表长度 &gt; 8 并且 数组长度 &lt; 64，会进行扩容，如果数组长度 &gt; 64，则将链表转换为红黑树。</p>
-<p>Hashtable存值只有在table的size达到临界值时才会进行扩容</p>
-<p>4、HashMap在链表存值时尾部插入，而Hashtable是头部插入</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1194,7 +1213,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:18</span>
+    <span title="站点阅读时长">1:19</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
