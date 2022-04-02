@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Mac 截图快捷键</title>
+    <url>/2022/04/02/Mac-%E6%88%AA%E5%9B%BE%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shift + Command + 3 截取所有屏幕；</span><br><span class="line">Shift + Command + 4 截取选中范围，按一次空格后切换至截取选中窗口；</span><br><span class="line">Shift + Command + 5 打开傻瓜化截图 /录屏工具；</span><br><span class="line"></span><br><span class="line">+3 和 +4 的快捷键如果再加上 Option 时，截图会放在剪贴板里。</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
     <title>Mac 查看jdk安装路径</title>
     <url>/2022/02/09/Mac-%E6%9F%A5%E7%9C%8Bjdk%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/</url>
     <content><![CDATA[<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/usr/libexec/java_home -V</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
