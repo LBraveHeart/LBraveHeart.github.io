@@ -170,7 +170,7 @@
     <content><![CDATA[<p>jar包冲突，导致</p>
 <p>项目中已添加</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">//分页插件</span><br><span class="line">compile &quot;com.github.pagehelper:pagehelper:4.1.3&quot;</span><br></pre></td></tr></table></figure>
-<p>导师出现问题：<code>net.sf.jsqlparser.statement.select.PlainSelect.getGroupByColumnReferences()Ljava/util/List</code>;</p>
+<p>出现问题：<code>net.sf.jsqlparser.statement.select.PlainSelect.getGroupByColumnReferences()Ljava/util/List</code>;</p>
 <p>去掉或者添加</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">compile group: &#x27;com.github.jsqlparser&#x27;, name: &#x27;jsqlparser&#x27;, version: &#x27;3.1&#x27;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
